@@ -146,15 +146,9 @@ function AdminKategori() {
             </svg>
             <span>Kelola Kategori</span>
           </div>
-          <Link to="/admin/logs" style={styles.navItemLink}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>Log Aktivitas</span>
-          </Link>
         </nav>
         <div style={styles.sidebarFooter}>
-          <div style={styles.userInfo}>
+        <div style={{ ...styles.userInfo, cursor: 'pointer' }} onClick={() => navigate('/admin/profile')}>
             <div style={styles.avatarSmall}>{initials}</div>
             <div>
               <p style={styles.userName}>{user?.username}</p>

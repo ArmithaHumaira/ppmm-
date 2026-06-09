@@ -28,8 +28,13 @@ function AdminDashboard() {
   useEffect(() => {
     fetchReports();
     fetchUsers();
+    const interval = setInterval(() => {
+      fetchReports();
+      fetchUsers();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
-
+  
   const fetchReports = async () => {
     try {
       const res = await API.get('/reports');
@@ -112,7 +117,7 @@ function AdminDashboard() {
         </nav>
 
         <div style={styles.sidebarFooter}>
-          <div style={styles.userInfo}>
+        <div style={{ ...styles.userInfo, cursor: 'pointer' }} onClick={() => navigate('/admin/profile')}>
             <div style={styles.avatarSmall}>{initials}</div>
             <div>
               <p style={styles.userName}>{user?.username}</p>

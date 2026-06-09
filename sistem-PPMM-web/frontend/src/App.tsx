@@ -12,7 +12,6 @@ import Laporan from './pages/admin/Laporan';
 import Kategori from './pages/admin/Kategori';
 import Users from './pages/admin/Users';
 import AdminDashboard from './pages/admin/Dashboard';
-import AdminLogs from './pages/admin/Logs';
 import Profile from './pages/Profile';
 import AdminProfile from './pages/admin/Profile';
 
@@ -52,9 +51,7 @@ function App() {
           <Route path="/superadmin/users" element={<SuperAdminRoute><Users /></SuperAdminRoute>} />
           <Route path="*" element={<Navigate to="/login" />} />
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          <Route path="/admin/logs" element={<AdminRoute><AdminLogs /></AdminRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/admin/profile" element={<AdminRoute><Profile /></AdminRoute>} />
           <Route path="/admin/profile" element={<AdminRoute><AdminProfile /></AdminRoute>} />
         </Routes>
       </BrowserRouter>

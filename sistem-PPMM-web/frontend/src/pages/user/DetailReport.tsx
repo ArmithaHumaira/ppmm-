@@ -32,6 +32,11 @@ function DetailReport() {
   useEffect(() => {
     fetchReport();
     fetchComments();
+    const interval = setInterval(() => {
+      fetchReport();
+      fetchComments();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchReport = async () => {

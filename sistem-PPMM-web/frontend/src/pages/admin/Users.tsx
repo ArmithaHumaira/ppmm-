@@ -18,6 +18,10 @@ function AdminUsers() {
 
   useEffect(() => {
     fetchUsers();
+    const interval = setInterval(() => {
+      fetchUsers();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchUsers = async () => {
@@ -115,12 +119,6 @@ function AdminUsers() {
               <path d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
             </svg>
             <span>Kelola Kategori</span>
-          </Link>
-          <Link to="/admin/logs" style={styles.navItemLink}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>Log Aktivitas</span>
           </Link>
         </nav>
         <div style={styles.sidebarFooter}>

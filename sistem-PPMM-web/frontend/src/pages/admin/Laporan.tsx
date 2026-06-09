@@ -22,6 +22,10 @@ function AdminLaporan() {
 
   useEffect(() => {
     fetchReports();
+    const interval = setInterval(() => {
+      fetchReports();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const fetchReports = async () => {
@@ -112,18 +116,13 @@ function AdminLaporan() {
             </svg>
             <span>Kelola Kategori</span>
           </Link>
-          <Link to="/admin/logs" style={styles.navItemLink}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>Log Aktivitas</span>
-          </Link>
-          <Link to="/admin/profile" style={styles.navItemLink}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-            </svg>
-            <span>Profil</span>
-          </Link>
+
+          <Link to="/superadmin/users" style={styles.navItemLink}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+              </svg>
+              <span>Kelola User</span>
+            </Link>
         </nav>
         <div style={styles.sidebarFooter}>
         <div style={{ ...styles.userInfo, cursor: 'pointer' }} onClick={() => navigate('/admin/profile')}>
@@ -225,26 +224,35 @@ function AdminLaporan() {
                       <p style={styles.tdText}>{new Date(report.created_at).toLocaleDateString('id-ID')}</p>
                     </td>
                     <td style={styles.td}>
-                      <div style={styles.actionGroup}>
-                        <button
-                          style={styles.actionBtn}
-                          onClick={() => handleStatus(report.id, report.status === 'approved' ? 'pending' : 'approved')}
-                          title="Ubah Status"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3498db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="20 6 9 17 4 12"/>
-                          </svg>
-                        </button>
-                        <button
-                          style={{ ...styles.actionBtn, backgroundColor: '#fdecea' }}
-                          onClick={() => handleDelete(report.id)}
-                          title="Hapus"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
-                          </svg>
-                        </button>
-                      </div>
+                    <div style={styles.actionGroup}>
+                          <button
+                            style={{ ...styles.actionBtn, backgroundColor: '#e8f5e9' }}
+                            onClick={() => handleStatus(report.id, 'approved')}
+                            title="Setujui"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27ae60" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                          </button>
+                          <button
+                            style={{ ...styles.actionBtn, backgroundColor: '#fff8e1' }}
+                            onClick={() => handleStatus(report.id, 'rejected')}
+                            title="Tolak"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f39c12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                          </button>
+                          <button
+                            style={{ ...styles.actionBtn, backgroundColor: '#fdecea' }}
+                            onClick={() => handleDelete(report.id)}
+                            title="Hapus"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+                            </svg>
+                          </button>
+                        </div>
                     </td>
                   </tr>
                 ))

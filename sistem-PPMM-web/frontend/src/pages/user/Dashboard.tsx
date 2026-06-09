@@ -21,8 +21,12 @@ function Dashboard() {
 
   useEffect(() => {
     fetchReports();
+    const interval = setInterval(() => {
+      fetchReports();
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
-
+  
   const fetchReports = async () => {
     try {
       const res = await API.get('/reports');
@@ -98,17 +102,10 @@ function Dashboard() {
           </svg>
           <span>Riwayat Saya</span>
         </Link>
-
-        <Link to="/profile" style={styles.navItemLink}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Profil</span>
-        </Link>
         </nav>
 
         <div style={styles.sidebarFooter}>
-          <div style={styles.userInfo}>
+        <div style={{ ...styles.userInfo, cursor: 'pointer' }} onClick={() => navigate('/profile')}>
             <div style={styles.avatarSmall}>{initials}</div>
             <div>
               <p style={styles.userName}>{user?.username}</p>
